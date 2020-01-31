@@ -1,0 +1,62 @@
+version: "3"
+services:
+  # mysql:
+  #   container_name: mysql
+  #   hostname: mysql
+  #   image: mysql:5.7.21
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - /Users/1022590/Shahnawaz/mysql:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: mysql
+  #   network_mode: bridge
+  #   restart: unless-stopped
+  # elasticsearch:
+  #   container_name: elasticsearch
+  #   hostname: elasticsearch
+  #   image: elasticsearch:6.8.5
+  #   ports: 
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   environment:
+  #     discovery.type: single-node
+  #   network_mode: bridge
+  #   restart: unless-stopped
+  kibana:
+    container_name: kibana
+    hostname: kibana
+    image: kibana:6.8.5
+    networks: 
+      - lct-repositories_myNet
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    # volumes:
+    #     - /Users/1022590/Shahnawaz/Personal/elasticsearch/kibana:/opt/kibana/config
+    # depends_on:
+    #   - elasticsearch
+    # links:
+    #   - elasticsearch
+    # restart: unless-stopped
+  # logstash:
+  #   container_name: logstash
+  #   hostname: logstash
+  #   image: logstash:6.8.5
+  #   volumes:
+  #     - /Users/1022590/Shahnawaz/Personal/elasticsearch/logstash/pipline/:/usr/share/logstash/pipeline/
+  #   #     - /etc/elasticsearch/searchguard/ssl:/etc/elasticsearch/searchguard/ssl
+  #   # depends_on:
+  #   #   - elasticsearch
+  #   # links:
+  #   #   - elasticsearch
+  #   ports:
+  #     - "5000:5000"
+  #     - "5001:5001"
+  #   networks: 
+  #     - lct-repositories_myNet
+  #   # restart: unless-stopped
+networks: 
+  lct-repositories_myNet:
+    external: true
